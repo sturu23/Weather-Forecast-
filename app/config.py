@@ -1,0 +1,4 @@
+
+
+SECRET_KEY = 'trytoguess'
+WTF_CSRF_SECRET_KEY = '1928'
