@@ -5,3 +5,26 @@
 .bg-light {
     border: 1px solid deepskyblue;
 }
+body{
+  margin: 5px 0;
+}
+
+.card{
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  box-sizing: border-box;
+  width: 200px;
+  height: 200px;
+  transition: all linear 200ms;
+}
+.card:hover{
+  transform: scale(1.1);
+  transition: all linear 200ms;
+  z-index: 1;
+  box-shadow: 1px 1px 10px rgba(0,0,0,.3);
+  cursor: pointer;
+}

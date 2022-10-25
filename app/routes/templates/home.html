@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>ამინდის პროგნოზი</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/reset.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="static/js/javascript.js"></script>
 
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <div class="container">
@@ -34,24 +38,80 @@
 <form action="{{ url_for('home.home',city=city) }}">
 
 
-{{ form.csrf_token }}
-{{ form.hidden_tag() }}
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    ქალაქები
-  </button>
+    {{ form.csrf_token }}
+
+    <div class="main-div">
+        <div class="top-div">
+            <div class="side-container">
+                <h4>{{ main_city }}</h4>
+                <little>{{ data_today[0][0] }},{{ data_today[0][1]['temperature'][:2]}}</little>
+                <div class="clock">
+                    <span id="hrs"></span>
+                    <span>:</span>
+                    <span id="mins"></span>
+                    <span>:</span>
+                    <span id="secs"></span>
+                </div>
+                <img src="{{ data_today[0][1]['img'] }}" alt="weather_pic">
+                <h2>{{ data_today[0][1]['weather'] }}</h2>
+            </div>
+        </div>
+        <div class="mid-div"></div>
+        <div class="grid-info">
+            <h1>ამინდი დღეების მიხედვით</h1>
+            <div class="box-info">
+                <div class="box">
+                    {% for weekday,info in weekly_weather.items() %}
+                    <h1>{{ weekday }}</h1>
+                    <p>{{ info['day'] }}</p>
+                    <img src="{{ info['img'] }}">
+                    <p1>{{ info['temperature'] }}</p1>
+                </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{#    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">#}
+{#        ქალაქები#}
+{#    </button>#}
+{##}
+{#    <ul class="dropdown-menu">#}
+{#        {% for city in cities %}#}
+{#            <li><a class="dropdown-item" href="{{ url_for('home.home',city=city) }}">{{ city }}</a></li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
 
 
-  <ul class="dropdown-menu">
-      {% for city in cities %}
-    <li><a class="dropdown-item" href="{{ url_for('home.home',city=city) }}">{{ city }}</a></li>
-      {% endfor %}
-  </ul>
+{#    <div>#}
+{#    <div >#}
+{#        <div class="card" style="width: 18rem;">#}
+{##}
+{#            <div class="card-body">#}
+{#                <h5>{{ main_city }}</h5>#}
+{#                <p class="card-text">{{ data_today[0][0] }}</p>#}
+{#                <p class="card-text">მოსალოდნელია:{{ data_today[0][1]['temperature'] }}, {{ data_today[0][1]['weather'] }}</p>#}
+{##}
+{#                <img src="{{ data_today[0][1]['img'] }}" alt="img" width="50px" height="50px">#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    </div>#}
 
-</div>
 
-    {% for key,value in data.items() %}
-        <li>{{ key }} {{ value }}</li>
-    {% endfor %}
+
+{#    {% for key,value in weekly_weather.items() %}#}
+{#        <div class="container d-flex flex-wrap align-items-center">#}
+{#            <div class="m-2 card">#}
+{#                {{ key }}#}
+{#                {{ value['temperature'] }}#}
+{#                {{ value['weather'] }}#}
+{#                <img src="{{ value['img'] }}" alt="img" width="50px" height="50px">#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endfor %}#}
+
 
 </form>
 </body>

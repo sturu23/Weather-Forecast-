@@ -1,15 +1,14 @@
 from bs4 import BeautifulSoup
-from flask import url_for
 import requests
 from pprint import pprint
-from app.routes.parse.parse_amindi_org import parse_amindi_org
 
 
-def parse_amindi_ge(city):
-    cities = parse_amindi_org()
-    url1 = f'https://amindi.ge/ka/city/{city}/?d=5'
-    response = requests.get(url1)
-    parser = BeautifulSoup(response.text, 'html.parser')
+def parsed_data_for_api(city):
+    api_data = {}
+
+    url = f'https://amindi.ge/ka/city/{city}/?d=5'
+    re = requests.get(url)
+    parser = BeautifulSoup(re.content, 'html.parser')
     weather_html = parser.find(class_='weather-days-right').find_all(class_='col px-0')
 
     image_weather_map = {
@@ -27,24 +26,18 @@ def parse_amindi_ge(city):
 
     }
 
-
-
-    weekly_weather = {}
-
     for weather in weather_html:
-        temperature_html = weather.find_all('span')
-        temperature = f"{temperature_html[0].text}°{temperature_html[1].text}°"
+        weather_temperature = weather.find_all('span')
+        temperature = f'{weather_temperature[0].text}°{weather_temperature[1].text}'
         weekday = weather.find(class_='weekDay').text
         weather_conditions = weather.find('img')['src']
         day = weather.find(class_='day').text
 
+        api_data[weekday] = {'city': city, 'degrees': temperature, 'weather': image_weather_map[weather_conditions],
+                             'img': weather_conditions, 'day': day}
 
-        weekly_weather[weekday] = {'temperature': temperature, 'weather': image_weather_map[weather_conditions],'img':weather_conditions,'day':day}
-
-
-
-    return weekly_weather, cities
+    return api_data
 
 
-if __name__ == "__main__":
-    pprint(parse_amindi_ge(city='ბათუმი'))
+if __name__ == '__main__':
+    pprint(parsed_data_for_api())

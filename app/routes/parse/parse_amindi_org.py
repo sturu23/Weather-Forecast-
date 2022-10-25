@@ -7,6 +7,7 @@ from pprint import pprint
 
 
 def parse_amindi_org():
+
     url = 'https://amindi.org/'
     response = requests.get(url)
     soup = BeautifulSoup(response.content,'html.parser')
