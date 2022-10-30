@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amindi</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/general.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/animations.css') }}" />
+  </head>
+  <body>
+  <form action="{{ url_for('home.home',city=city) }}">
+    <header>
+      <div class="header-main">
+        <div class="header-left">
+          <p class="logo">STURUA-GE.GE</p>
+          <form action="#">
+            <input type="text" placeholder="Enter a city" class="city-input" required />
+            <button class="city-btn">Search</button>
+          </form>
+        </div>
+        <div class="header-right">
+          <img src="static/img/calendar.svg" alt="a calendar" class="calendar-icon" />
+          <div class="date-box">
+            <p>{{ data_today[0][1]['day'] }}</p>
+            <p style="color: #fff">
+                <div class="clock">
+                    <span id="hrs"></span>
+                    <span>:</span>
+                    <span id="mins"></span>
+                    <span>:</span>
+                    <span id="secs"></span>
+                </div>
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-main">
+            <div class="weather-card">
+              <div class="weather--1">
+                <p>{{ main_city }}</p>
+                <img src="{{ data_today[0][1]['img'] }}" class="weather-state"  alt="photo"/>
+                <p>{{ data_today[0][1]['weather'] }}</p>
+                <p>{{ data_today[0][1]['temperature'][:1] }}C°</p>
+              </div>
+              <div class="weather--2">
+                <p>ტემპ. მგრძნობელობა <span>12°</span></p>
+                <p>ტენიანობა <span>62 %</span></p>
+                <p>ქარის სიჩქარე <span>20 kph</span></p>
+                <p>ღრუბლიანობა <span>0%</span></p>
+                <p>მზის ამოსვლა <span>7:27</span></p>
+                <p>მზის ჩასვლა <span>18:01</span></p>
+              </div>
+            </div>
+
+            <div class="weather-cards">
+              <div class="grid grid-4--cls">
+                  {% for weekday,info in weekly_weather.items() %}
+                <div class="card">
+                  <p><span>{{ weekday }}</span>{{ info['day'] }}</p>
+                  <img src="{{ info['img'] }}" alt="photo" />
+                  <p>{{ info['temperature'] }}</p>
+                </div>
+                  {% endfor %}
+              </div>
+            </div>
+
+              <div class="grid grid-3--cls">
+                <div class="hourly-weather">
+                  <p class="paragraph">ამინდი საათების მიხედვით</p>
+
+                    {% for hour,hourly_info in hourly_weather.items() %}
+
+                  <div class="hour">
+                    <div>
+                      <p><ion-icon name="time-outline"></ion-icon>
+                          {{ hour }} &mdash; დღეს</p>
+                    </div>
+                    <div>
+                      <img style="height:50px;width:50px" src="{{ hourly_info[1] }}" alt="photo" />
+                      <span>{{ hourly_info[0] }}°</span>
+                    </div>
+                  </div>
+                    {% endfor %}
+                </div>
+                <div class="wind-air grid-2--rows">
+                  <div class="wind-card">
+                    <p class="paragraph test">ქარი და წნევა</p>
+                    <div class="wind-data">
+                      <img src="/static/img/wind.svg" alt="icon-wind" class="wind-icon" />
+                      <div>
+                        <p>ქარის სიჩქარე</p>
+                        <p>{{ wind_pressure[2]}}</p>
+                      </div>
+                    </div>
+                    <div class="pressure-data">
+                      <img src="/static/img/wind.svg" alt="icon-wind" class="wind-icon" />
+                      <div>
+                        <p>წნევა</p>
+                        <p>{{ wind_pressure[4] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pressure-card">
+                    <p class="paragraph">ჰაერის დაბინძურება</p>
+                    <div class="air-data top">
+                      <p>ძალიან კარგი</p>
+                    </div>
+                    <div class="air-data bottom">
+                      <p><span style="background-color: #0c93f1"></span>ძალიან კარგი</p>
+                      <p><span style="background-color: rgb(27, 178, 88)"></span>კარგი</p>
+                      <p><span style="background-color: rgb(207, 162, 0)"></span>საშუალო</p>
+                      <p><span style="background-color: rgb(219, 57, 57)"></span>ცუდი</p>
+                      <p><span style="background-color: rgb(167, 91, 57)"></span>ძალიან ცუდი</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="exchange-money">
+                  <p class="paragraph">ვალუტის კურსი</p>
+                  <div class="exchange-box"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </form>
+  </body>
+  <script src="static/js/script.js"></script>
+  <script src="static/js/javascript.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</html>

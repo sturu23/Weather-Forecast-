@@ -11,6 +11,8 @@ def parse_amindi_ge(city):
     response = requests.get(url1)
     parser = BeautifulSoup(response.text, 'html.parser')
     weather_html = parser.find(class_='weather-days-right').find_all(class_='col px-0')
+    hourly_html = parser.find(class_='weather-hours pb-3').find_all(class_='row')
+    wind_pressure = parser.find(class_='wind-text')
 
     image_weather_map = {
         '/static/img/weather_small_01.png': 'მზიანი',
@@ -27,10 +29,8 @@ def parse_amindi_ge(city):
 
     }
 
-
-
     weekly_weather = {}
-
+    # for loop in weather_html to get every detail for weekly weather
     for weather in weather_html:
         temperature_html = weather.find_all('span')
         temperature = f"{temperature_html[0].text}°{temperature_html[1].text}°"
@@ -38,13 +38,29 @@ def parse_amindi_ge(city):
         weather_conditions = weather.find('img')['src']
         day = weather.find(class_='day').text
 
+        weekly_weather[weekday] = {"temperature": temperature, 'weather': image_weather_map[weather_conditions],
+                                   'img': weather_conditions, 'day': day}
+    # get hourly data from amindi.ge
+    for hourly in hourly_html:
+        hour = [hr.get_text().strip() for hr in
+                hourly.find_all(class_='col-5 d-flex justify-content-end align-items-center item')]
+        hourly_temperature = [hr_temperature.get_text().strip() for hr_temperature in hourly.find_all('span')]
+        hourly_img = [hr_img['src'] for hr_img in hourly.find_all('img')]
+        # using zip and zipping 3 item together
+        new_dict = {hour: [hourly_temperature, hourly_img] for hour, hourly_temperature, hourly_img in
+                    zip(hour, hourly_temperature, hourly_img)}
 
-        weekly_weather[weekday] = {'temperature': temperature, 'weather': image_weather_map[weather_conditions],'img':weather_conditions,'day':day}
+    wind_pressure_list = []
 
+    for wind in wind_pressure:
+        speed_of_wind = wind.get_text()
+        wind_pressure_list.append(speed_of_wind.strip())
 
-
-    return weekly_weather, cities
+    while '' in wind_pressure_list:
+        wind_pressure_list.remove('')
+    print(wind_pressure_list)
+    return weekly_weather, cities, new_dict, wind_pressure_list
 
 
 if __name__ == "__main__":
-    pprint(parse_amindi_ge(city='ბათუმი'))
+    pprint(parse_amindi_ge(city='თბილისი'))
