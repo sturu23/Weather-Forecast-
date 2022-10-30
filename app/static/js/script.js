@@ -1,5 +1,7 @@
 const hourItems = document.querySelectorAll(`.hour`);
 const hourBox = document.querySelector(`.hourly-weather`);
+const logoBtn = document.querySelector(`.logo`);
+const listCity = document.querySelector(`.list-city`);
 
 const obsSettings = {
   root: hourBox,
@@ -14,3 +16,6 @@ const fadeIn = function (e) {
 };
 let observer = new IntersectionObserver(fadeIn, obsSettings);
 hourItems.forEach((el) => observer.observe(el));
+logoBtn.addEventListener(`click`, function (e) {
+  listCity.classList.toggle(`show`);
+});

@@ -17,10 +17,6 @@ def home(city):
     hourly_weather = parse[2]
     wind_pressure = parse[3]
     data_today = []
-    print(wind_pressure)
-
-    for i in wind_pressure:
-        print(i)
 
     for today in weekly_weather.items():
         data_today.append(today)

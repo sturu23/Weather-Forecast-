@@ -14,11 +14,15 @@
     <header>
       <div class="header-main">
         <div class="header-left">
-          <p class="logo">STURUA-GE.GE</p>
-          <form action="#">
-            <input type="text" placeholder="Enter a city" class="city-input" required />
-            <button class="city-btn">Search</button>
-          </form>
+          <p style="font-size: 20px;color: white" class="logo-1">GE-ამინდი</p>
+          <div style="position: relative">
+            <p class="logo">ქალაქები</p>
+            <ul class="list-city">
+             {% for city in cities %}
+            <li><a style="text-decoration:none;font-size: 1.3rem" href="{{ url_for('home.home',city=city) }}">{{ city }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
         </div>
         <div class="header-right">
           <img src="static/img/calendar.svg" alt="a calendar" class="calendar-icon" />

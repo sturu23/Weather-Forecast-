@@ -14,74 +14,74 @@
 
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="{{ url_for('static',filename='img/logo.png') }}" alt="ae" width="50" height="50">
-                <p>ამინდის პროგნოზი</p>
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">სიახლეები</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">ამინდი უცხოეთში</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+{##}
+{#<nav class="navbar navbar-expand-lg bg-light">#}
+{#    <div class="container-fluid">#}
+{#        <div class="container">#}
+{#            <a class="navbar-brand" href="#">#}
+{#                <img src="{{ url_for('static',filename='img/logo.png') }}" alt="ae" width="50" height="50">#}
+{#                <p>ამინდის პროგნოზი</p>#}
+{#            </a>#}
+{#        </div>#}
+{#        <div class="collapse navbar-collapse" id="navbarNav">#}
+{#            <ul class="navbar-nav">#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link active" href="#">სიახლეები</a>#}
+{#                </li>#}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="#">ამინდი უცხოეთში</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
+{#    </div>#}
+{#</nav>#}
 <form action="{{ url_for('home.home',city=city) }}">
 
-
     {{ form.csrf_token }}
-
-    <div class="main-div">
-        <div class="top-div">
-            <div class="side-container">
-                <h4>{{ main_city }}</h4>
-                <little>{{ data_today[0][0] }},{{ data_today[0][1]['temperature'][:2]}}</little>
-                <div class="clock">
-                    <span id="hrs"></span>
-                    <span>:</span>
-                    <span id="mins"></span>
-                    <span>:</span>
-                    <span id="secs"></span>
-                </div>
-                <img src="{{ data_today[0][1]['img'] }}" alt="weather_pic">
-                <h2>{{ data_today[0][1]['weather'] }}</h2>
-            </div>
-        </div>
-        <div class="mid-div"></div>
-        <div class="grid-info">
-            <h1>ამინდი დღეების მიხედვით</h1>
-            <div class="box-info">
-                <div class="box">
-                    {% for weekday,info in weekly_weather.items() %}
-                    <h1>{{ weekday }}</h1>
-                    <p>{{ info['day'] }}</p>
-                    <img src="{{ info['img'] }}">
-                    <p1>{{ info['temperature'] }}</p1>
-                </div>
-                    {% endfor %}
-            </div>
-        </div>
-    </div>
+{##}
+{#    <div class="main-div">#}
+{#        <div class="top-div">#}
+{#            <div class="side-container">#}
+{#                <h4>{{ main_city }}</h4>#}
+{#                <little>{{ data_today[0][0] }},{{ data_today[0][1]['temperature'][:2]}}</little>#}
+{#                <div class="clock">#}
+{#                    <span id="hrs"></span>#}
+{#                    <span>:</span>#}
+{#                    <span id="mins"></span>#}
+{#                    <span>:</span>#}
+{#                    <span id="secs"></span>#}
+{#                </div>#}
+{#                <img src="{{ data_today[0][1]['img'] }}" alt="weather_pic">#}
+{#                <h2>{{ data_today[0][1]['weather'] }}</h2>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="mid-div"></div>#}
+{#        <div class="grid-info">#}
+{#            <h1>ამინდი დღეების მიხედვით</h1>#}
+{#            <div class="box-info">#}
+{#                <div class="box">#}
+{#                    {% for weekday,info in weekly_weather.items() %}#}
+{#                    <h1>{{ weekday }}</h1>#}
+{#                    <p>{{ info['day'] }}</p>#}
+{#                    <img src="{{ info['img'] }}">#}
+{#                    <p1>{{ info['temperature'] }}</p1>#}
+{#                </div>#}
+{#                    {% endfor %}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
 
 {#    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">#}
 {#        ქალაქები#}
 {#    </button>#}
 {##}
-{#    <ul class="dropdown-menu">#}
-{#        {% for city in cities %}#}
-{#            <li><a class="dropdown-item" href="{{ url_for('home.home',city=city) }}">{{ city }}</a></li>#}
-{#        {% endfor %}#}
-{#    </ul>#}
-
+{% block content %}
+    <ul class="dropdown-menu">
+        {% for city in cities %}
+            <li><a class="dropdown-item" href="{{ url_for('home.home',city=city) }}">{{ city }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
 
 {#    <div>#}
 {#    <div >#}

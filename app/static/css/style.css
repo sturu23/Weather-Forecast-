@@ -43,9 +43,14 @@ body {
   margin: 0 auto;
 }
 .logo {
+  border: 2px solid white;
+  border-radius:2rem;
+  padding: 2rem;
   font-size: 2rem;
   font-weight: 600;
   color: #fff;
+  cursor: pointer;
+  user-select: none;
 }
 .date-box {
   font-size: 1.5rem;
@@ -308,4 +313,29 @@ body {
   padding: 3rem;
   -webkit-box-shadow: 0 0 5rem 1rem rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 5rem 1rem rgba(0, 0, 0, 0.2);
+}
+.list-city {
+  list-style-type: none;
+  background-color: rgba(255, 255, 255, 0.676);
+  border-radius: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s;
+  max-height: 17rem;
+  overflow-y: auto;
+}
+.list-city li {
+  padding: 1rem;
+  border-bottom: 0.2rem solid #000;
+  cursor: pointer;
+  color: #222;
+}
+.show {
+  top: 3rem;
+  opacity: 1;
+  visibility: visible;
 }
