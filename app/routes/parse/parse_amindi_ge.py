@@ -21,6 +21,7 @@ def parse_amindi_ge(city):
         '/static/img/weather_small_04.png': 'ღრუბლიანი',
         '/static/img/weather_small_06.png': 'უმეტესად ღრუბლიანი',
         '/static/img/weather_small_07.png': 'უმეტესად ღრუბლიანი',
+        '/static/img/weather_small_08.png': 'უმეტესად ღრუბლიანი',
         '/static/img/weather_small_14.png': 'ღრუბლიანი',
         '/static/img/weather_small_12.png': 'წვიმიანი',
         '/static/img/weather_small_13.png': 'ნახევრად-წვიმიანი',
@@ -58,7 +59,8 @@ def parse_amindi_ge(city):
 
     while '' in wind_pressure_list:
         wind_pressure_list.remove('')
-    print(wind_pressure_list)
+
+
     return weekly_weather, cities, new_dict, wind_pressure_list
 
 

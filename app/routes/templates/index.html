@@ -67,7 +67,11 @@
                   {% for weekday,info in weekly_weather.items() %}
                 <div class="card">
                   <p><span>{{ weekday }}</span>{{ info['day'] }}</p>
-                  <img src="{{ info['img'] }}" alt="photo" />
+                    {% if not info['img'] %}
+                        <img src="#" alt="pic">
+                    {% else %}
+                        <img src="{{ info['img'] }}" alt="photo" />
+                    {% endif %}
                   <p>{{ info['temperature'] }}</p>
                 </div>
                   {% endfor %}
